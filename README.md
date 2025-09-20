@@ -1,6 +1,6 @@
 # 🍽️ Restaurant Management System
 
-A full-stack **university project** built with **Angular 17**, **Express.js**, and **MySQL**.  
+A full-stack **university project** built with **Angular**, **Express.js**, and **MySQL**.  
 It demonstrates modern web development practices including authentication, data visualization, and role-based access control.
 
 > ⚠️ **Note:** This project is for educational purposes only and not intended for production use.
