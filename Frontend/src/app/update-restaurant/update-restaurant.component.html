@@ -1,0 +1,89 @@
+<app-navbar [currentLang]="currentLang" (langChange)="toggleLanguage()"></app-navbar>
+
+<div class="form-container">
+  <div class="image-box">
+    <img
+      [src]="restaurant.image || '../../../assets/default_restaurant_image.jpg'"
+      alt="Restaurant Image"
+      class="preview-image"
+    />
+  </div>
+
+  <!-- File Upload Input -->
+  <div class="image-upload">
+    <label for="image" class="upload-label">{{ 'UPLOAD_IMAGE' | translate }}</label>
+    <input type="file" (change)="onFileImageSelected($event)" accept="image/*" />
+  </div>
+  <div class="pdf-upload">
+    <label for="pdf" class="upload-label">{{ 'UPLOAD_MENU' | translate }}</label>
+    <input type="file" id="menu" (change)="onFileMenuSelected($event)" accept="menu/*" />
+  </div>
+
+  <form (ngSubmit)="updateRestaurant()" #updateForm="ngForm" class="restaurant-form">
+    <div class="form-group">
+      <label for="name">{{ 'NAME' | translate }}</label>
+      <input id="name" type="text" [(ngModel)]="restaurant.name" name="name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="description">{{ 'DESCRIPTION' | translate }}</label>
+      <textarea id="description" [(ngModel)]="restaurant.description" name="description" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="address">{{ 'ADDRESS' | translate }}</label>
+      <input id="address" type="text" [(ngModel)]="restaurant.address" name="address" required />
+    </div>
+
+    <div class="form-group">
+      <label for="workingHour">{{ 'WORKING_HOURS' | translate }}</label>
+      <input id="workingHour" type="text" [(ngModel)]="restaurant.workingHour" name="workingHour" required />
+    </div>
+
+    <div class="form-group">
+      <label for="website">{{ 'WEBSITE' | translate }}</label>
+      <input id="website" type="text" [(ngModel)]="restaurant.website" name="website" required />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">{{ 'PHONE' | translate }}</label>
+      <input id="phone" type="text" [(ngModel)]="restaurant.phone" name="phone" required />
+    </div>
+
+    <div class="form-group">
+      <label for="cuisineType">{{ 'CUISINE_TYPE' | translate }}</label>
+      <select id="cuisineType" [(ngModel)]="restaurant.cuisineType" name="cuisineType" required>
+        <option *ngFor="let type of cuisineTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'INTOLERANCES' | translate }}</label>
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="restaurant.glutenFree" name="glutenFree" />
+          {{ 'GLUTEN_FREE' | translate }}
+        </label>
+        <label>
+          <input type="checkbox" [(ngModel)]="restaurant.lactoseFree" name="lactoseFree" />
+          {{ 'LACTOSE_FREE' | translate }}
+        </label>
+        <label>
+          <input type="checkbox" [(ngModel)]="restaurant.soyFree" name="soyFree" />
+          {{ 'SOY_FREE' | translate }}
+        </label>
+      </div>
+    </div>
+
+    <div class="buttons-container">
+      <button type="submit" class="update-button" [disabled]="!updateForm.form.valid">
+        {{ 'UPDATE_BUTTON' | translate }}
+      </button>
+      <button class="back-button" (click)="navigateToProfile()">
+        {{ 'BACK_BUTTON' | translate }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,83 @@
+<app-navbar [currentLang]="currentLang" (langChange)="toggleLanguage()"></app-navbar>
+
+<div class="register_container">
+  <form class="form" (ngSubmit)="registerUser()" #registerForm="ngForm">
+    <p class="title">{{ 'REGISTER' | translate }}</p>
+    <p class="message">{{ 'CREATE_ACCOUNT' | translate }}</p>
+
+    <!-- User Type Selection -->
+    <div class="user-type">
+      <label class="radio-label">
+        <input type="radio" name="userType" value="customer" [(ngModel)]="userType" required #userTypeInput="ngModel">
+        <span>{{ 'CUSTOMER' | translate }}</span>
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="userType" value="owner" [(ngModel)]="userType" required #userTypeInput="ngModel">
+        <span>{{ 'RESTAURANT_OWNER' | translate }}</span>
+      </label>
+    </div>
+    <div class="error-message" *ngIf="userTypeInput.invalid && userTypeInput.touched">
+      {{ 'USER_TYPE_REQUIRED' | translate }}
+    </div>
+
+    <!-- Name Input -->
+    <label>
+      <input required type="text" class="input" name="name" [(ngModel)]="name" #nameInput="ngModel">
+      <span>{{ 'NAME' | translate }}</span>
+    </label>
+    <div class="error-message" *ngIf="nameInput.invalid && nameInput.touched">
+      {{ 'NAME_REQUIRED' | translate }}
+    </div>
+
+    <!-- Email Input -->
+    <label>
+      <input required type="email" class="input" name="email" [(ngModel)]="email" #emailInput="ngModel" email>
+      <span>{{ 'EMAIL' | translate }}</span>
+    </label>
+    <div class="error-message" *ngIf="emailInput.invalid && emailInput.touched">
+      {{ 'VALID_EMAIL_REQUIRED' | translate }}
+    </div>
+
+    <!-- Password Input -->
+    <label>
+      <input required [type]="showPassword ? 'text' : 'password'" class="input" name="password" [(ngModel)]="password" #passwordInput="ngModel" minlength="6">
+      <span>{{ 'PASSWORD' | translate }}</span>
+      <button type="button" class="toggle-password" (click)="togglePassword()">
+        {{ showPassword ? '👁️' : '👁️‍🗨️' }}
+      </button>
+    </label>
+    <div class="error-message" *ngIf="passwordInput.invalid && passwordInput.touched">
+      {{ 'PASSWORD_MIN_LENGTH' | translate }}
+    </div>
+
+    <!-- Confirm Password Input -->
+    <label>
+      <input required [type]="showConfirmPassword ? 'text' : 'password'" class="input" name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordInput="ngModel">
+      <span>{{ 'CONFIRM_PASSWORD' | translate }}</span>
+      <button type="button" class="toggle-password" (click)="toggleConfirmPassword()">
+        {{ showConfirmPassword ? '👁️' : '👁️‍🗨️' }}
+      </button>
+    </label>
+    <div class="error-message" *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched">
+      {{ 'CONFIRM_PASSWORD_REQUIRED' | translate }}
+    </div>
+    <div class="error-message" *ngIf="password !== confirmPassword && confirmPasswordInput.touched">
+      {{ 'PASSWORDS_DO_NOT_MATCH' | translate }}
+    </div>
+
+    <!-- Error Message for Registration Failure -->
+    <div class="error-message" *ngIf="registerError">
+      {{ registerError }}
+    </div>
+
+    <!-- Register Button -->
+    <button class="submit" type="submit" [disabled]="registerForm.invalid || isLoading || password !== confirmPassword">
+      {{ isLoading ? ('REGISTERING' | translate) : ('REGISTER_BUTTON' | translate) }}
+    </button>
+
+    <p class="signin">{{ 'ALREADY_HAVE_ACCOUNT' | translate }} <a routerLink="/login">{{ 'LOGIN' | translate }}</a></p>
+    <button (click)="goBackToHome()" class="back-btn">{{ 'BACK_TO_HOME' | translate }}</button>
+  </form>
+</div>
+
+<app-footer></app-footer>

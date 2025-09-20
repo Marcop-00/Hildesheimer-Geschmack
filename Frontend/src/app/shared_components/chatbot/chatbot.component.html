@@ -1,0 +1,38 @@
+<div class="chatbot-container" [class.open]="isOpen$ | async">
+  <!-- Chat toggle button -->
+  <button class="chat-toggle" (click)="toggleChat()">
+    <i class="fa" [ngClass]="(isOpen$ | async) ? 'fa-times' : 'fa-comments'"></i>
+  </button>
+  
+  <!-- Chat window -->
+  <div class="chat-window">
+    <div class="chat-header">
+      <h3>Restaurant Assistant</h3>
+      <button class="close-button" (click)="toggleChat()">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="messages-container">
+      <div *ngFor="let message of messages$ | async" 
+           class="message" 
+           [ngClass]="{'bot': message.isBot, 'user': !message.isBot}">
+        <div class="message-content">{{ message.text }}</div>
+        <div class="message-time">{{ message.timestamp | date:'shortTime' }}</div>
+      </div>
+      <div #scrollBottom></div>
+    </div>
+    
+    <div class="chat-input">
+      <input 
+        type="text" 
+        [(ngModel)]="messageText" 
+        placeholder="Type your message..."
+        (keyup.enter)="sendMessage()"
+      >
+      <button (click)="sendMessage()">
+        <i class="fa fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+</div>

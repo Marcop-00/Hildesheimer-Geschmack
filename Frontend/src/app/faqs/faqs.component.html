@@ -1,0 +1,39 @@
+<app-navbar [currentLang]="currentLang" (langChange)="toggleLanguage()"></app-navbar>
+
+<div class="page-container">
+  <div class="content-container">
+    <h1>Frequently Asked Questions</h1>
+    <p class="faq-intro">
+      Find answers to common questions about Hildesheim Geschmack. If you can't find the information you're looking for, 
+      please <a [routerLink]="'/feedback'" class="contact-link">contact us</a>.
+    </p>
+    
+    <div class="faq-list">
+      <div *ngFor="let faq of faqs; let i = index" class="faq-item" [class.open]="faq.open">
+        <div class="faq-question" (click)="toggleFaq(i)">
+          <h2>{{ faq.question }}</h2>
+          <div class="faq-icon">
+            <span *ngIf="!faq.open">+</span>
+            <span *ngIf="faq.open">-</span>
+          </div>
+        </div>
+        <div class="faq-answer" [class.open]="faq.open">
+          <p>{{ faq.answer }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <section class="additional-help">
+      <h2>Need More Help?</h2>
+      <p>
+        If you couldn't find the answer to your question, our support team is here to help.
+      </p>
+      <div class="help-options">
+        <a [routerLink]="'/feedback'" class="help-button">Contact Support</a>
+        <a href="mailto:help@hildesheimgeschmack.de" class="help-button email">Email Us</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<app-footer></app-footer>

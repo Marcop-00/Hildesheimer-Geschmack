@@ -1,0 +1,51 @@
+<app-navbar [currentLang]="currentLang" (langChange)="toggleLanguage()"></app-navbar>
+
+<div class="create-restaurant-container">
+  <header class="create-restaurant-header">
+    <h1>{{ 'CREATE_A_NEW_RESTAURANT' | translate }}</h1>
+  </header>
+
+  <form (ngSubmit)="createRestaurant()" #restaurantForm="ngForm" class="restaurant-form">
+    <div class="form-group">
+      <label for="name">{{ 'RESTAURANT_NAME' | translate }}</label>
+      <input id="name" type="text" [(ngModel)]="restaurant.name" name="name" required />
+    </div>
+    <div class="form-group">
+      <label for="cuisine-type">{{ 'CUISINE_TYPE' | translate }}</label>
+      <select id="cuisine-type" [(ngModel)]="restaurant.cuisineType" name="cuisineType" required>
+        <option *ngFor="let cuisineType of cuisineTypes" [value]="cuisineType">{{ cuisineType }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="description">{{ 'DESCRIPTION' | translate }}</label>
+      <textarea id="description" [(ngModel)]="restaurant.description" name="description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="address">{{ 'ADDRESS' | translate }}</label>
+      <input id="address" type="text" [(ngModel)]="restaurant.address" name="address" required />
+    </div>
+    <div class="form-group">
+      <label for="phone">{{ 'PHONE_NUMBER' | translate }}</label>
+      <input id="phone" type="text" [(ngModel)]="restaurant.phone" name="phone" required />
+    </div>
+    <div class="form-group">
+      <label for="website">{{ 'WEBSITE' | translate }}</label>
+      <input id="website" type="text" [(ngModel)]="restaurant.website" name="website" required />
+    </div>
+    <div class="form-group">
+      <label for="workingHour">{{ 'WORKING_HOURS' | translate }}</label>
+      <input id="workingHour" type="text" [(ngModel)]="restaurant.workingHour" name="workingHour" required />
+    </div>
+    <div class="form-group">
+      <label>{{ 'INTOLERANCES_ACCEPTED' | translate }}:</label><br>
+      <input type="checkbox" [(ngModel)]="restaurant.glutenFree" name="glutenFree"> {{ 'GLUTEN_FREE' | translate }}
+      <input type="checkbox" [(ngModel)]="restaurant.lactoseFree" name="lactoseFree"> {{ 'LACTOSE_FREE' | translate }}
+      <input type="checkbox" [(ngModel)]="restaurant.soyFree" name="soyFree"> {{ 'SOY_FREE' | translate }}
+    </div>
+    <button class="submit-create-restaurant-button" type="submit" [disabled]="!restaurantForm.form.valid">
+      {{ 'CREATE_RESTAURANT' | translate }}
+    </button>
+  </form>
+</div>
+
+<app-footer></app-footer>

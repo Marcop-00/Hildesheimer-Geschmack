@@ -1,0 +1,25 @@
+<header class="header">
+  <img src="../../assets/restaurants-icon.png" alt="Icon" class="title-icon" [routerLink]="'/'"/>
+  <div class="header-content">
+    <div class="title">
+      <h1>Hildesheimer Geschmack</h1>
+    </div>
+    <div class="auth-buttons">
+      <app-theme-toggle></app-theme-toggle>
+      <button class="lang-btn" (click)="toggleLanguage()">{{ currentLang === 'en' ? 'DE' : 'EN' }}</button>
+      <!-- Show profile button if logged in -->
+      <ng-container *ngIf="isAuthenticated; else guestButtons">
+        <button class="profile-btn" [routerLink]="'/profile'">
+           {{ userData.user.name }}
+        </button>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </ng-container>
+
+      <!-- Show login/register buttons if not logged in -->
+      <ng-template #guestButtons>
+        <button class="login-btn" [routerLink]="'/login'">Login</button>
+        <button class="register-btn" [routerLink]="'/register'">Register</button>
+      </ng-template>
+    </div>
+  </div>
+</header>

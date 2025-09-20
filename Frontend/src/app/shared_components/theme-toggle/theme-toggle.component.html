@@ -1,0 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<button (click)="toggleTheme()" class="theme-toggle" aria-label="Toggle dark mode">
+  <i *ngIf="isDarkMode$ | async" class="fa fa-sun-o"></i>
+  <i *ngIf="!(isDarkMode$ | async)" class="fa fa-moon-o"></i>
+</button>

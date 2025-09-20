@@ -1,0 +1,21 @@
+<app-navbar [currentLang]="currentLang" (langChange)="toggleLanguage()"></app-navbar>
+<h3>{{ 'ANALYSIS_OF_VIEWS' | translate: { restaurantName: restaurantData.name } }}</h3>
+
+<div class="main-container">
+  <div class="stats-box">
+    <p>{{ 'VIEWS' | translate }}: {{ restaurantData.viewCount }}</p>
+    <p>{{ 'FAVORITES' | translate }}: {{ restaurantData.favoriteCount }}</p>
+    <p>{{ 'COMMENTS' | translate }}: {{ restaurantData.commentCount }}</p>
+  </div>
+  <div class="chart-container">
+    <canvas id="analyticsChart"></canvas>
+  </div>
+</div>
+
+<div class="button-container">
+  <button class="back-button" (click)="navigateToProfile()">
+    {{ 'GO_BACK_TO_PROFILE' | translate }}
+  </button>
+</div>
+
+<app-footer></app-footer>

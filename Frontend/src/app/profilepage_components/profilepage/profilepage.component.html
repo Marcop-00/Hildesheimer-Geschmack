@@ -1,0 +1,102 @@
+<app-navbar [currentLang]="currentLang" (langChange)="toggleLanguage()"></app-navbar>
+<div class="profile-container">
+  <header class="profile-header">
+    <h1>{{ 'USER_PROFILE' | translate }}</h1>
+  </header>
+
+  <div class="profile-content" *ngIf="user">
+    <div class="profile-card">
+      <img
+        [src]="user.image || '../../../assets/default_profile_image.jpg'"
+        alt="User Image"
+      />
+      <h2>{{ user.name }}</h2>
+      <p>{{ 'EMAIL' | translate }}: {{ user.email }}</p>
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+    </div>
+
+    <div class="profile-details">
+      <h3>{{ 'USER_PROFILE' | translate }}</h3>
+      <p>{{ 'MEMBER_SINCE' | translate }}: {{ user.createdAt | date : "medium" }}</p>
+      <p>{{ 'USER_TYPE' | translate }}: {{ user.role }}</p>
+      <form (ngSubmit)="updateAccount()">
+        <div class="form-group">
+          <label for="name">{{ 'NAME' | translate }}</label>
+          <input
+            id="name"
+            type="text"
+            [(ngModel)]="user.name"
+            name="name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">{{ 'EMAIL' | translate }}</label>
+          <input
+            id="email"
+            type="email"
+            [(ngModel)]="user.email"
+            name="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">{{ 'PASSWORD' | translate }}</label>
+          <input
+            id="password"
+            type="password"
+            [(ngModel)]="user.password"
+            name="password"
+          />
+        </div>
+
+        <button type="submit" class="update-button">{{ 'UPDATE_ACCOUNT' | translate }}</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Show Favorite Restaurants if User is a CUSTOMER -->
+  <div class="favorites-section" *ngIf="user.role === 'CUSTOMER'">
+    <h3>{{ 'FAVORITE_RESTAURANTS' | translate }}</h3>
+    <div class="favorites-grid">
+      <app-favorite-restaurant-card
+        *ngFor="let restaurant of favoriteRestaurants"
+        [restaurant]="restaurant"
+      >
+      </app-favorite-restaurant-card>
+    </div>
+  </div>
+
+  <!-- Show "Create Restaurant" Button if User is an OWNER and has no restaurant -->
+  <div
+    class="owner-section"
+    *ngIf="user.role === 'OWNER' && !userRestaurant"
+  >
+    <button
+      class="create-restaurant-button"
+      [routerLink]="'/create-restaurant'"
+    >
+      {{ 'CREATE_RESTAURANT' | translate }}
+    </button>
+  </div>
+
+  <!-- Show Restaurant Details if the owner already has a restaurant -->
+  <div
+    class="restaurant-section"
+    *ngIf="user.role === 'OWNER' && userRestaurant"
+  >
+    <app-profilepage-components-owner-restaurant-card [userRestaurant]="userRestaurant"></app-profilepage-components-owner-restaurant-card>
+  </div>
+
+  <div class="admin-section" *ngIf="user.role === 'ADMIN'">
+    <h3>{{ 'ADMIN_SECTION' | translate }}</h3>
+    <app-profilepage-components-admin-section
+      [restaurants]="restaurants"
+      [users]="users"
+      [feedbacks]="feedbacks"
+    ></app-profilepage-components-admin-section>
+  </div>
+</div>
+<app-footer></app-footer>

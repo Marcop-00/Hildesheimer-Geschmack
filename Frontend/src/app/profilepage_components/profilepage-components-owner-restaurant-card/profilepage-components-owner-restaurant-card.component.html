@@ -1,0 +1,30 @@
+<h3>{{ 'YOUR_RESTAURANT' | translate }}</h3>
+
+<div class="main-container">
+  <li class="card" (click)="navigateToRestaurant()">
+    <img
+      [src]="
+        userRestaurant!.image || '../../../assets/default_restaurant_image.jpg'
+      "
+      alt="restaurant.name"
+      class="card-image"
+    />
+    <div class="card-content">
+      <h3>{{ userRestaurant!.name }}</h3>
+      <p>{{ userRestaurant!.description }}</p>
+      <p>{{ 'ADDRESS' | translate }}: {{ userRestaurant!.address }}</p>
+      <p>{{ 'PHONE_NUMBER' | translate }}: {{ userRestaurant!.phone }}</p>
+    </div>
+  </li>
+  <div class="buttons-container">
+    <button class="update-restaurant-button" (click)="navigateToUpdateRestaurant()">
+      {{ 'UPDATE_RESTAURANT_DETAILS' | translate }}
+    </button>
+    <button class="analytics-button" (click)="navigateToAnalytics()">
+      {{ 'VIEW_ANALYTICS' | translate }}
+    </button>
+    <button class="delete-restaurant-button" (click)="deleteRestaurant()">
+      {{ 'DELETE_RESTAURANT' | translate }}
+    </button>
+  </div>
+</div>

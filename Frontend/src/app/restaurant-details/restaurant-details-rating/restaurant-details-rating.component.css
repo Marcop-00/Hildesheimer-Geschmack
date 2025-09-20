@@ -1,0 +1,15 @@
+.rating {
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.rating span {
+  font-size: 30px;
+  color: gray;
+  transition: color 0.3s;
+}
+
+.rating span.selected {
+  color: gold;
+}

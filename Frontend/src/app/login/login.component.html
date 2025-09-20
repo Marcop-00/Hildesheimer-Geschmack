@@ -1,0 +1,75 @@
+  <app-navbar [currentLang]="currentLang" (langChange)="toggleLanguage()"></app-navbar>
+
+  <div class="login_container">
+  <form class="form" (ngSubmit)="login()" #loginForm="ngForm">
+    <p class="title">{{ 'LOGIN' | translate }}</p>
+    <p class="message">{{ 'WELCOME_BACK' | translate }}</p>
+
+    <!-- Email Input -->
+    <label>
+      <input
+        type="email"
+        class="input"
+        name="email"
+        [(ngModel)]="email"
+        #emailInput="ngModel"
+        required
+        email
+      >
+      <span>{{ 'EMAIL' | translate }}</span>
+    </label>
+    <div class="error-message" *ngIf="emailInput.invalid && emailInput.touched">
+      {{ 'EMAIL_REQUIRED' | translate }}
+    </div>
+
+    <!-- Password Input with Toggle -->
+    <label class="password-label">
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        class="input"
+        name="password"
+        [(ngModel)]="password"
+        #passwordInput="ngModel"
+        required
+        minlength="6"
+      >
+      <span>{{ 'PASSWORD' | translate }}</span>
+      <button
+        type="button"
+        class="toggle-password"
+        (click)="togglePassword()"
+      >
+        {{ showPassword ? ('HIDE_PASSWORD' | translate) : ('SHOW_PASSWORD' | translate) }}
+      </button>
+    </label>
+    <div class="error-message" *ngIf="passwordInput.invalid && passwordInput.touched">
+      {{ 'PASSWORD_REQUIRED' | translate }}
+    </div>
+
+    <!-- Login Error Message -->
+    <div class="error-message" *ngIf="loginError">{{ loginError }}</div>
+
+    <!-- Login Button -->
+    <button
+      class="submit"
+      type="submit"
+      [disabled]="loginForm.invalid || isLoading"
+    >
+      {{ isLoading ? ('LOGGING_IN' | translate) : ('LOGIN' | translate) }}
+    </button>
+
+    <!-- Register Link -->
+    <p class="signin">
+      {{ 'DONT_HAVE_ACCOUNT' | translate }}
+      <a [routerLink]="'/register'">{{ 'REGISTER' | translate }}</a>
+    </p>
+    <!-- Back to Home Button -->
+    <button type="button" (click)="goBackToHome()" class="back-btn">
+      {{ 'BACK_TO_HOME' | translate }}
+    </button>
+
+  </form>
+</div>
+<app-footer></app-footer>
+
+

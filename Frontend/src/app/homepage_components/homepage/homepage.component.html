@@ -1,0 +1,37 @@
+<app-navbar [currentLang]="currentLang" (langChange)="toggleLanguage()"></app-navbar>
+
+<div class="search-bar">
+  <input
+    type="text"
+    [placeholder]="'SEARCH_FOR_RESTAURANTS...' | translate"
+    [(ngModel)]="searchQuery"
+    (keyup.enter)="searchRestaurants()"
+    aria-label="Search for restaurants"
+  />
+  <button (click)="searchRestaurants()">{{ 'SEARCH' | translate }}</button>
+
+  <!-- Dropdown Filter -->
+  <select [(ngModel)]="selectedFilter" (change)="filterRestaurants()">
+    <option value="newest">{{'NEWEST' | translate }}</option>
+    <option value="oldest">{{'OLDEST' | translate }}</option>
+    <option value="mostFavorited">{{'MOST_FAVORITED' | translate }}</option>
+    <option value="mostCommented">{{'MOST_COMMENTED' | translate }}</option>
+    <option value="bestRated">{{'BEST_RATED' | translate }}</option>
+  </select>
+</div>
+
+<div class="results">
+  <!-- <h2 *ngIf="filteredRestaurants.length">{{'RESULTS:' | translate }}</h2> -->
+  <p *ngIf="!filteredRestaurants.length" class="no-results">
+    {{'NO_RESTAURANT_FOUND. TRY_A_DIFFERENT_SEARCH' | translate }}
+  </p>
+  <ul>
+    <app-restaurant-card
+      *ngFor="let restaurant of filteredRestaurants"
+      [restaurant]="restaurant"
+    ></app-restaurant-card>
+  </ul>
+</div>
+
+
+<app-footer></app-footer>

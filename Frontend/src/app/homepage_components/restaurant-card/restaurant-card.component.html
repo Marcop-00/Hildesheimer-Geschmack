@@ -1,0 +1,7 @@
+<li class="card" (click)="navigateToRestaurant()">
+  <img [src]="restaurant.image || '../../../assets/default_restaurant_image.jpg'" alt="restaurant.name" class="card-image" />
+  <div class="card-content">
+    <h3>{{ restaurant.name }}</h3>
+    <p>{{ restaurant.description }}</p>
+  </div>
+</li>

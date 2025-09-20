@@ -1,0 +1,65 @@
+<app-navbar [currentLang]="currentLang" (langChange)="toggleLanguage()"></app-navbar>
+
+<div class="page-container">
+  <div class="content-container">
+    <h1>About Hildesheim Geschmack</h1>
+    
+    <section class="about-section">
+      <h2>Our Mission</h2>
+      <p>
+        Hildesheim Geschmack aims to connect food lovers with the diverse culinary landscape of Hildesheim. 
+        We believe that everyone deserves access to high-quality dining experiences that match their preferences, 
+        dietary needs, and budget.
+      </p>
+    </section>
+    
+    <section class="about-section">
+      <h2>Our Story</h2>
+      <p>
+        Founded in 2024, Hildesheim Geschmack was born out of a passion for the rich food culture in Hildesheim. 
+        We noticed that despite the wide variety of excellent restaurants in our city, residents and tourists 
+        often struggled to find the perfect dining spot for their needs.
+      </p>
+      <p>
+        Starting with just a handful of restaurant partners, we've grown to become the most comprehensive restaurant 
+        finder platform in Hildesheim, featuring everything from traditional German cuisine to international flavors.
+      </p>
+    </section>
+    
+    <section class="about-section">
+      <h2>How It Works</h2>
+      <p>
+        Our platform allows users to discover restaurants based on location, cuisine type, price range, and special 
+        features. Anyone can browse our listings as a guest, but registered users enjoy personalized recommendations, 
+        the ability to save favorites, and exclusive promotions from partner restaurants.
+      </p>
+      <p>
+        Restaurant owners can register their establishments to gain visibility, manage their profiles, and connect 
+        directly with potential customers.
+      </p>
+    </section>
+    
+    <section class="about-section">
+      <h2>Our Team</h2>
+      <p>
+        We are a dedicated team of food enthusiasts, tech experts, and customer service professionals committed to 
+        enhancing the dining experience in Hildesheim. Our diverse backgrounds and shared passion for food drive us 
+        to continually improve our platform to serve both diners and restaurant owners.
+      </p>
+    </section>
+    
+    <section class="about-section">
+      <h2>Join Our Community</h2>
+      <p>
+        Whether you're a food lover searching for your next favorite restaurant or a restaurant owner looking to 
+        expand your reach, Hildesheim Geschmack welcomes you to join our growing community.
+      </p>
+      <div class="join-buttons">
+        <a [routerLink]="'/register'" class="cta-button">Register Now</a>
+        <a [routerLink]="'/feedback'" class="secondary-button">Contact Us</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<app-footer></app-footer>

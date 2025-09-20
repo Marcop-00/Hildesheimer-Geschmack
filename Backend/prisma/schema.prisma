@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+model Restaurant {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  image       String?
+  menu        String?
+  address     String
+  workingHour String
+  website     String
+  phone       String
+  cuisineType CuisineType
+  glutenFree  Boolean
+  lactoseFree Boolean
+  soyFree     Boolean
+  owner       User    @relation(fields: [ownerId], references: [id]) // One-to-one relation
+  ownerId     Int     @unique // Ensures only one restaurant per owner
+  favoritedBy User[]     @relation("Favorites")
+  comments    Comment[]  @relation("RestaurantComments")
+  ratings     Rating[]   @relation("RestaurantRatings")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  viewCount      Int        @default(0) // Tracks how many times the restaurant is viewed
+  favoriteCount  Int        @default(0) // Tracks how many users have favorited the restaurant
+  commentCount   Int        @default(0) // Tracks how many comments the restaurant has
+}
+
+enum CuisineType {
+  AMERICAN
+  ASIAN
+  BAKERY
+  BARBECUE
+  BURGER
+  CAFE
+  CHINESE
+  DESSERT
+  FAST_FOOD
+  FRENCH
+  INDIAN
+  ITALIAN
+  JAPANESE
+  KOREAN
+  MEXICAN
+  PIZZA
+  SEAFOOD
+  STEAKHOUSE
+  SUSHI
+  THAI
+  VEGETARIAN
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String
+  email     String     @unique
+  password  String
+  role      Role
+  image     String
+  restaurant Restaurant? @relation // One-to-one relation with Restaurant
+  favorites Restaurant[] @relation("Favorites")
+  comments  Comment[]    @relation("UserComments")
+  ratings   Rating[]     @relation("UserRatings")
+  createdAt   DateTime   @default(now())
+}
+
+model Comment {
+  id          Int        @id @default(autoincrement())
+  content     String
+  restaurant  Restaurant @relation("RestaurantComments", fields: [restaurantId], references: [id])
+  restaurantId Int
+  user        User       @relation("UserComments", fields: [userId], references: [id])
+  userId      Int
+  createdAt   DateTime   @default(now())
+}
+
+model Rating {
+  id          Int        @id @default(autoincrement())
+  value       Int        
+  restaurant  Restaurant @relation("RestaurantRatings", fields: [restaurantId], references: [id])
+  restaurantId Int
+  user        User       @relation("UserRatings", fields: [userId], references: [id])
+  userId      Int
+  createdAt   DateTime   @default(now())
+  @@unique([restaurantId, userId])
+}
+
+model Feedback {
+  id          Int        @id @default(autoincrement())
+  message     String      
+  createdAt   DateTime   @default(now())
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+  OWNER
+}

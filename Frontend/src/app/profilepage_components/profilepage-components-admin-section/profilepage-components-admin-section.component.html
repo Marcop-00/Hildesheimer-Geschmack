@@ -1,0 +1,88 @@
+<div class="admin-dashboard">
+  <h1 class="dashboard-title">{{ 'ADMIN_DASHBOARD' | translate }}</h1>
+
+  <!-- Tabs for navigation -->
+  <div class="tabs-container">
+    <ul class="nav-tabs">
+      <li [class.active]="activeTab === 'restaurants'" (click)="activeTab = 'restaurants'">
+        <i class="fa fa-utensils"></i> {{ 'RESTAURANTS' | translate }}
+      </li>
+      <li [class.active]="activeTab === 'users'" (click)="activeTab = 'users'">
+        <i class="fa fa-users"></i> {{ 'USERS' | translate }}
+      </li>
+      <li [class.active]="activeTab === 'feedbacks'" (click)="activeTab = 'feedbacks'">
+        <i class="fa fa-comments"></i> {{ 'FEEDBACKS' | translate }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Restaurants Section -->
+  <div class="section-container" *ngIf="activeTab === 'restaurants'">
+    <div class="section-header">
+      <h2>{{ 'ALL_RESTAURANTS' | translate }}</h2>
+    </div>
+    
+    <div class="cards-container">
+      <div class="card" *ngFor="let restaurant of restaurants">
+        <div class="card-header">
+          <h3>{{ restaurant.name }}</h3>
+        </div>
+        <div class="card-body">
+          <p><i class="fa fa-map-marker-alt"></i> {{ restaurant.address }}</p>
+          <p *ngIf="restaurant.phone"><i class="fa fa-phone"></i> {{ restaurant.phone }}</p>
+          <p *ngIf="restaurant.cuisineType"><i class="fa fa-utensils"></i> {{ restaurant.cuisineType }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Users Section -->
+  <div class="section-container" *ngIf="activeTab === 'users'">
+    <div class="section-header">
+      <h2>{{ 'ALL_USERS' | translate }}</h2>
+    </div>
+    
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>{{ 'NAME' | translate }}</th>
+            <th>{{ 'EMAIL' | translate }}</th>
+            <th>{{ 'ROLE' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>
+              <div class="user-info">
+                <div class="user-avatar">{{ user.name.charAt(0) }}</div>
+                <span>{{ user.name }}</span>
+              </div>
+            </td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role || 'User' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Feedbacks Section -->
+  <div class="section-container" *ngIf="activeTab === 'feedbacks'">
+    <div class="section-header">
+      <h2>{{ 'ALL_FEEDBACKS' | translate }}</h2>
+    </div>
+    
+    <div class="feedback-container">
+      <div class="feedback-card" *ngFor="let feedback of feedbacks">
+        <div class="feedback-header">
+          <h3 *ngIf="">{{ 'ANONYMOUS_USER' | translate }}</h3>
+          <span class="feedback-date">{{ feedback.createdAt | date }}</span>
+        </div>
+        <div class="feedback-body">
+          <p>{{ feedback.message }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

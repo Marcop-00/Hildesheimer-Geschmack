@@ -1,0 +1,113 @@
+<app-navbar [currentLang]="currentLang" (langChange)="toggleLanguage()"></app-navbar>
+
+<div class="container">
+  <div class="content">
+    <div class="image">
+      <img
+        [src]="restaurant.image || '../../assets/default_restaurant_image.jpg'"
+        alt="Restaurant image"
+      />
+    </div>
+    <div class="details">
+      <h2>{{ restaurant.name }}</h2>
+      <div *ngIf="rating===0" class="rating-container">
+        <h2>{{ 'NO_RATING' | translate }}</h2>
+      </div>
+      <div *ngIf="rating!==0" class="rating-container">
+        <h2>{{ 'RATING' | translate }}: </h2>
+        <span *ngFor="let star of stars">⭐</span>
+      </div>
+      <p class="description">{{ restaurant.description }}</p>
+      <p>{{ 'CUISINE' | translate }}: {{ restaurant.cuisineType }}</p>
+      <p>{{ 'LOCATION' | translate }}: {{ restaurant.address }}</p>
+      <p>{{ 'PHONE' | translate }}: {{ restaurant.phone }}</p>
+      <p>{{ 'WEBSITE' | translate }}: {{ restaurant.website }}</p>
+      <p>{{ 'HOURS' | translate }}: {{ restaurant.workingHour }}</p>
+    </div>
+  </div>
+  <hr>
+
+  <div class="middle-container">
+    <button *ngIf="restaurant.menu !== null" (click)="downloadMenu()" class="download-btn">
+      {{ 'DOWNLOAD_MENU' | translate }}
+    </button>
+    <div class="favorite-container">
+      <h4>{{ 'ADD_TO_FAVORITES' | translate }}</h4>
+      <div *ngIf="userRole !== 'OWNER' && userLogged === true">
+        <button (click)="toggleFavorite()" class="heart-btn">
+          <span [class.filled]="isFavorite">
+            {{ isFavorite ? "❤️" : "🤍" }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+<hr>
+  <div *ngIf="userRole !== 'OWNER' && userLogged === true">
+    <h2>{{ 'RATE_RESTAURANT' | translate }}</h2>
+    <app-restaurant-details-rating
+      [(rating)]="userRating"
+      (ratingChange)="submitRating($event)"
+    ></app-restaurant-details-rating>
+  </div>
+  <hr>
+  <h2>{{ 'INTOLERANCES' | translate }}</h2>
+  <div class="intolerances">
+    <!-- Gluten-Free -->
+    <div *ngIf="restaurant.glutenFree === true">
+      <img
+        class="intolerance-photo"
+        src="../../assets/gluten-free-icon.jpg"
+        alt="Gluten free"
+      />
+    </div>
+
+    <!-- Lactose-Free -->
+    <div *ngIf="restaurant.lactoseFree === true">
+      <img
+        class="intolerance-photo"
+        src="../../assets/lactose-free-icon.jpg"
+        alt="Lactose free"
+      />
+    </div>
+    <!-- Soy-Free -->
+    <div *ngIf="restaurant.soyFree === true">
+      <img
+        class="intolerance-photo"
+        src="../../assets/soy-free-icon.jpg"
+        alt="Soy free"
+      />
+    </div>
+  </div>
+  <hr>
+  <div class="comments">
+    <h2>{{ 'COMMENTS' | translate }}</h2>
+    <div *ngIf="userRole !== 'OWNER' && userLogged === true">
+      <div class="add-comment">
+        <input [(ngModel)]="newComment" [placeholder]="'ADD_COMMENT' | translate" />
+        <button (click)="addComment()">{{ 'SUBMIT' | translate }}</button>
+      </div>
+    </div>
+    <div *ngFor="let comment of comments.slice().reverse()" class="comment">
+      <div class="comment-header">
+        <img
+          *ngIf="comment.user?.image"
+          [src]="comment.user?.image"
+          alt="{{ comment.user?.name }}"
+          class="profile-pic"
+        />
+        <div class="comment-info">
+          <p>
+            <strong>{{ comment.user?.name }}</strong>
+            <span class="comment-date">{{
+              comment.createdAt | date : "short"
+            }}</span>
+          </p>
+          <p class="comment-content">{{ comment.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

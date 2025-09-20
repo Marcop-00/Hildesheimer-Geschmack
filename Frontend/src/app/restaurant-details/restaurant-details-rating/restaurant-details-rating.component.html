@@ -1,0 +1,13 @@
+<div class="rating">
+  <span
+    *ngFor="let star of stars; let i = index"
+    (click)="rate(i + 1)"
+    (mouseover)="hover(i + 1)"
+    (mouseleave)="resetHover()"
+    [ngClass]="{'selected': (hoveredRating || rating) > i}"
+  >
+    &#9733; <!-- Unicode for star -->
+  </span>
+</div>
+
+<p *ngIf="rating">You rated: {{ rating }}/5</p>
