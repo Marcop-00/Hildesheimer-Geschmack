@@ -6,7 +6,7 @@ It demonstrates modern web development practices including authentication, data 
 > ⚠️ **Note:** This project is for educational purposes only and not intended for production use.
 
 ![Node.js](https://img.shields.io/badge/node-%3E%3D16-green)
-![Angular](https://img.shields.io/badge/angular-17-red)
+![Angular](https://img.shields.io/badge/angular-red)
 ![MySQL](https://img.shields.io/badge/mysql-%3E%3D8-blue)
 
 ---
